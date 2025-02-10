@@ -6,6 +6,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -26,31 +28,38 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Ejemplo1Theme{
-                    Content()
+                 GreetingPreview()
             }
         }
     }
 
     @Preview(showBackground = true)
     @Composable
-    fun Content(){
-        Text(
-            text = "Hola Jetpack Compose",
-            color = Color.Blue,
-            fontWeight = FontWeight.Bold,
-            fontSize = 20.sp,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .padding()
-                .background(Color.Blue)
-        )
+    fun GreetingPreview() {
+     Content("Hola","Mundo")
+    }
+
+    @Composable
+    fun Content(mensaje1:String, mensaje2:String) {
+        Column {
+            Text(mensaje1,
+                fontSize = 30.sp)
+            Text(mensaje2,
+                lineHeight = 30.sp)
+            Text("Ricardo",
+                fontWeight = FontWeight.Bold,
+                fontSize = 30.sp,
+                lineHeight = 32.sp)
+        }
+    }
+}
     /*Modificadores
     * De posicionamiento = width, height, top, bottom, start, end
     * De funcionalidad = click, scroll
     * De apariencia = background, padding, border
     *
      */
-    }
-}
+
+
 
 
