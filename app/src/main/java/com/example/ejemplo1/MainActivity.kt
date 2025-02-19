@@ -55,6 +55,7 @@ fun Content() {
     var result by remember { mutableStateOf("") }
 
     Column(
+
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
