@@ -37,81 +37,79 @@ import androidx.compose.ui.unit.sp
 import com.example.ejemplo1.ui.theme.Ejemplo1Theme
 
 class MainActivity : ComponentActivity() {
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Ejemplo1Theme{
-                    Content()
+            Ejemplo1Theme {
+                Content()
             }
         }
     }
+}
 
-    @Preview(showBackground = true)
-    @Composable
-    fun Content() {
+@Preview(showBackground = true)
+@Composable
+fun Content() {
+    var text1 by remember { mutableStateOf(TextFieldValue("")) }
+    var text2 by remember { mutableStateOf(TextFieldValue("")) }
+    var result by remember { mutableStateOf("") }
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        SimpleImage()
+
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SimpleImage()
+            CustomTextField(label = "Valor 1", value = text1) { text1 = it }
+            CustomTextField(label = "Valor 2", value = text2) { text2 = it }
 
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                OutLineTextFieldSample()
-                OutLineTextFieldSample2()
-                ButtonWithRoundCornerShape()
+            ButtonWithRoundCornerShape {
+                result = "Valores ingresados: ${text1.text} y ${text2.text}"
+            }
+
+            if (result.isNotEmpty()) {
+                Text(text = result, fontSize = 18.sp, fontWeight = FontWeight.Bold)
             }
         }
     }
+}
 
-    @Composable
-    fun SimpleImage() {
-        Image(
-            painter = painterResource(id = R.drawable.back),
-            contentDescription = "Fondo",
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(200.dp),
-            contentScale = ContentScale.Crop
-        )
+@Composable
+fun SimpleImage() {
+    Image(
+        painter = painterResource(id = R.drawable.back),
+        contentDescription = "Fondo",
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp),
+        contentScale = ContentScale.Crop
+    )
+}
+
+@Composable
+fun CustomTextField(label: String, value: TextFieldValue, onValueChange: (TextFieldValue) -> Unit) {
+    OutlinedTextField(
+        value = value,
+        label = { Text(text = label) },
+        onValueChange = onValueChange,
+        modifier = Modifier.fillMaxWidth().padding(8.dp)
+    )
+}
+
+@Composable
+fun ButtonWithRoundCornerShape(onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        shape = RoundedCornerShape(20.dp),
+        modifier = Modifier.padding(8.dp)
+    ) {
+        Text(text = "Calcular")
     }
-
-    @Composable
-    fun OutLineTextFieldSample() {
-        var text by remember { mutableStateOf(TextFieldValue("")) }
-        OutlinedTextField(
-            value = text,
-            label = { Text(text = "Valor 1") },
-            onValueChange = {
-                text = it
-            }
-        )
-    }
-    @Composable
-    fun OutLineTextFieldSample2() {
-        var text by remember { mutableStateOf(TextFieldValue("")) }
-        OutlinedTextField(
-            value = text,
-            label = { Text(text = "Valor 2") },
-            onValueChange = {
-                text = it
-            }
-        )
-    }
-
-
-        @Composable
-        fun ButtonWithRoundCornerShape() {
-            Button(onClick = {}, shape = RoundedCornerShape(20.dp)) {
-                Text(text = "Calcular")
-            }
-        }
-
-
-    }
+}
 
