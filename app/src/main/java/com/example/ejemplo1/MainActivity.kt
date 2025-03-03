@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.example.ejemplo1.components.MainButton
+import com.example.ejemplo1.navigation.NavManager
 import com.example.ejemplo1.ui.theme.Ejemplo1Theme
 import com.example.ejemplo1.ui.theme.views.DetailView
 import com.example.ejemplo1.ui.theme.views.HomeView
@@ -39,8 +40,7 @@ class MainActivity : ComponentActivity() {
     @Preview(showBackground = true)
     @Composable
     fun Content() {
-    HomeView()
-
+    NavManager()
     }
 
 
