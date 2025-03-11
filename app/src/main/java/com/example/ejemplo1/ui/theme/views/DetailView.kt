@@ -1,34 +1,32 @@
 package com.example.ejemplo1.ui.theme.views
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.ejemplo1.components.ActionButton
-import com.example.ejemplo1.components.MainButton
 import com.example.ejemplo1.components.MainIconButton
-import com.example.ejemplo1.components.Spacers
 import com.example.ejemplo1.components.TitleBar
-import com.example.ejemplo1.components.TitleView
+import java.lang.reflect.Modifier
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailView(navController: NavController){
+fun DetailView(navController: NavController, id: Int) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { TitleBar( "Detail View") },
+                title = { TitleBar("Detail View") },
                 colors = androidx.compose.material3.TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = Color.Blue
                 ),
@@ -42,23 +40,20 @@ fun DetailView(navController: NavController){
         floatingActionButton = {
             ActionButton(Color.Blue)
         }
-    )
-    {
-        ContentView(navController)
+    ) {
+        ContentView(navController, id)
     }
 }
 
 @Composable
-fun ContentView(navController: NavController) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        TitleView("Detail View")
-        Spacers()
-        MainButton("Back", Color.Blue, color = Color.White) {
-            navController.popBackStack()
+private fun ContentView(navController: NavController, id: Int) {
+    LazyColumn {
+        item {
+            Text(
+                text = "ID recibido: $id",
+                modifier = Modifier.padding(16.dp), // ✅ CORRECTO
+                style = MaterialTheme.typography.bodyLarge
+            )
 
         }
     }

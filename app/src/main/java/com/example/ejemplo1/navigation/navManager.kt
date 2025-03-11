@@ -1,9 +1,10 @@
 package com.example.ejemplo1.navigation
-
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.ejemplo1.ui.theme.views.DetailView
 import com.example.ejemplo1.ui.theme.views.HomeView
 
@@ -15,9 +16,11 @@ fun NavManager() {
             HomeView(navController)
 
         }
-
-        composable("Detail") {
-            DetailView(navController)
+        composable("Detail/{id}", arguments = listOf(
+            navArgument("id"){type= NavType.IntType}
+        )) {
+            val id:Int = it.arguments?.getInt("id")?:0
+            DetailView(navController,id)
         }
     }
 }

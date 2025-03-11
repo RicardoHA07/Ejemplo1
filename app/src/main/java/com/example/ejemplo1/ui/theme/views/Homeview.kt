@@ -22,7 +22,7 @@ import com.example.ejemplo1.components.TitleView
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeView(navController: NavController) {
+fun HomeView(navController: NavController) { // Eliminamos `id` porque no es necesario
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -36,12 +36,14 @@ fun HomeView(navController: NavController) {
             ActionButton(Color.Red)
         }
     ) {
-        ContentView1(navController)  // ✅ Pasar navController correctamente
+        ContentView1(navController)
     }
 }
 
 @Composable
 private fun ContentView1(navController: NavController) {
+    val id = 123 // Definir id dentro de la función, no en la firma de HomeView
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -49,8 +51,8 @@ private fun ContentView1(navController: NavController) {
     ) {
         TitleView("Home")
         Spacers()
-        MainButton("Generico", Color.Red, Color.White) {
-            navController.navigate("Detail")
+        MainButton("Ir a Detalle", Color.Red, Color.White) {
+            navController.navigate("Detail/$id") // Navegación corregida
         }
     }
 }
